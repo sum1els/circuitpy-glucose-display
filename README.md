@@ -35,7 +35,7 @@ This project provides a simple and effective way to continuously monitor and dis
 
    - `adafruit_imageload`
    - `adafruit_display_text`
-   - `adafruit_requests`
+   - `adafruit_requests.mpy`
    - `adafruit_connection_manager.mpy`
    - `adafruit_st7789.mpy`
 
@@ -46,7 +46,7 @@ This project provides a simple and effective way to continuously monitor and dis
 
    - `adafruit_imageload`
    - `adafruit_display_text`
-   - `adafruit_requests`
+   - `adafruit_requests.mpy`
    - `adafruit_connection_manager.mpy`
    - `adafruit_st7789.mpy`
 
