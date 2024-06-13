@@ -33,8 +33,8 @@ This project provides a simple and effective way to continuously monitor and dis
 - [Thonny or similar IDE for programming](https://thonny.org/)
 - [Adafruit CircuitPython Libraries](https://circuitpython.org/libraries)
 
-   - `adafruit_imageload`
-   - `adafruit_display_text`
+   - `adafruit_imageload` - Folder
+   - `adafruit_display_text` - Folder
    - `adafruit_requests.mpy`
    - `adafruit_connection_manager.mpy`
    - `adafruit_st7789.mpy`
@@ -44,8 +44,8 @@ This project provides a simple and effective way to continuously monitor and dis
 
 2. **Install Required Libraries**: Download the required libraries from the [CircuitPython library bundle](https://circuitpython.org/libraries) and copy them to the `lib` folder on your Pico W's CIRCUITPY drive:
 
-   - `adafruit_imageload`
-   - `adafruit_display_text`
+   - `adafruit_imageload` - Folder
+   - `adafruit_display_text` - Folder
    - `adafruit_requests.mpy`
    - `adafruit_connection_manager.mpy`
    - `adafruit_st7789.mpy`
