@@ -52,7 +52,7 @@ This project provides a simple and effective way to continuously monitor and dis
 
 3. **Clone this Repository**: Clone this repository to your local machine and copy the contents to the CIRCUITPY drive.
 
-4. **Configure Wi-Fi**: Create a `settings.toml` file on the CIRCUITPY drive with your Wi-Fi credentials and Freestyle LibreLinkUp account details:
+4. **Configure Wi-Fi**: Rename `settings.toml.example` to `settings.toml` on the CIRCUITPY drive (if not there already) and update it with your Wi-Fi credentials and Freestyle LibreLinkUp account details:
    ```python
     CIRCUITPY_WIFI_SSID = "WIFI_SSID"
     CIRCUITPY_WIFI_PASSWORD = "WIFI_PASSWORD"
