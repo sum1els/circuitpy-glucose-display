@@ -176,7 +176,7 @@ low_value_label.scale = (2)
 
 # Create MAX target label
 high_label = label.Label(font, color=COLOR_RED, text="TARGET HIGH")
-high_label.anchor_point = (1.0, 0.0) #anchor left top
+high_label.anchor_point = (1.0, 0.0) #anchor right top
 high_label.anchored_position = (DISPLAY_WIDTH - 20, 150)
 high_label.scale = (1)
 
