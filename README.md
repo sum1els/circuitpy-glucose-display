@@ -15,6 +15,8 @@ This project uses a Raspberry Pi Pico W and a Waveshare 2" IPS screen to display
 ## Introduction
 This project provides a simple and effective way to continuously monitor and display glucose levels from the Freestyle Libre CGM on a small IPS screen using a Raspberry Pi Pico W. The project is written in CircuitPython, making it easy to modify and extend.
 
+![example](example.jpg)
+
 ## Features
 - Displays real-time glucose levels from the Freestyle Libre CGM.
 - Easy-to-read display with Waveshare 2" IPS screen.
