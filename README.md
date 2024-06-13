@@ -26,7 +26,7 @@ This project provides a simple and effective way to continuously monitor and dis
 ## Hardware Requirements
 - [Raspberry Pi Pico W](https://www.raspberrypi.com/products/raspberry-pi-pico/)
 - [Waveshare 2" IPS Screen](https://www.waveshare.com/pico-lcd-2.htm)
-- Freestyle Libre Continuous Glucose Monitor
+- Freestyle Libre Continuous Glucose Monitor (with LibreLinkUp account)
 
 ## Software Requirements
 - [CircuitPython](https://circuitpython.org/)
