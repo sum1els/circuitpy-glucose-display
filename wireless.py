@@ -9,5 +9,3 @@ def connect():
         print("unable to connect to wifi ...")
     
     print("Connected to WiFi")
-
-    pool = socketpool.SocketPool(wifi.radio)
