@@ -32,7 +32,7 @@ This project provides a simple and effective way to continuously monitor and dis
 - [CircuitPython](https://circuitpython.org/)
 - [Thonny or similar IDE for programming](https://thonny.org/)
 - [Adafruit CircuitPython Libraries](https://circuitpython.org/libraries)
-   - `adafruit_bitmap_font`
+
    - `adafruit_imageload`
    - `adafruit_display_text`
    - `adafruit_requests`
@@ -43,7 +43,7 @@ This project provides a simple and effective way to continuously monitor and dis
 1. **Install CircuitPython**: Follow the instructions on the [CircuitPython website](https://circuitpython.org/board/raspberry_pi_pico/) to install CircuitPython on your Raspberry Pi Pico W.
 
 2. **Install Required Libraries**: Download the required libraries from the [CircuitPython library bundle](https://circuitpython.org/libraries) and copy them to the `lib` folder on your Pico W's CIRCUITPY drive:
-   - `adafruit_bitmap_font`
+
    - `adafruit_imageload`
    - `adafruit_display_text`
    - `adafruit_requests`
