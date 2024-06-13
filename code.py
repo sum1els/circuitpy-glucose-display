@@ -136,15 +136,7 @@ HEADERS = {
     'Authorization': 'Bearer ' + api_token
 }
 
-#font_file = "fonts/terminal.bdf"
-#font = bitmap_font.load_font(font_file)
 font = terminalio.FONT
-
-# Create wifi label
-#wifi_label = label.Label(font, color=0xFFFFFF)
-#wifi_label.anchor_point = (0.0, 0.0)
-#wifi_label.anchored_position = (5, 5)
-#wifi_label.scale = (1)
 
 # mgdL label
 glucose_units_label = label.Label(font, color=COLOR_WHITE)
@@ -194,12 +186,6 @@ high_value_label.anchor_point = (1.0, 0.0) #anchor right top
 high_value_label.anchored_position = (DISPLAY_WIDTH - 20, 162)
 high_value_label.scale = (2)
 
-
-# Create trend label
-#trend_label = label.Label(font, color=0x000000)
-#trend_label.anchor_point = (0.5, 0.0)
-#trend_label.anchored_position = (DISPLAY_WIDTH / 2, 170)
-#trend_label.scale = (3)
     
 displayio.release_displays()
 spi = busio.SPI(clock=clk_pin, MOSI=mosi_pin)
@@ -207,7 +193,6 @@ while not spi.try_lock():
     pass
 spi.configure(baudrate=24000000) # Configure SPI for 24MHz
 spi.unlock()
-#spi = busio.SPI(clock=clk_pin, MOSI=mosi_pin)
 display_bus = FourWire(spi, command=dc_pin, chip_select=cs_pin, reset=reset_pin)
 
 display = ST7789(display_bus, width=DISPLAY_WIDTH, height=DISPLAY_HEIGHT, rotation=270)
@@ -231,17 +216,8 @@ trend_arrows = displayio.TileGrid(sprite_sheet, pixel_shader=palette,
                             tile_height = 16)
 
 
-# create backgroud
-#color_bitmap = displayio.Bitmap(160, 128, 1)
-#color_palette = displayio.Palette(1)
-#color_palette[0] = 0x000000  # initial color black
-
-#background = displayio.TileGrid(color_bitmap, pixel_shader=color_palette, x=0, y=0)
-
 trend_arrow_group.append(trend_arrows)
-#ui.append(wifi_label)
 ui.append(glucose_value)
-#ui.append(trend_label)
 ui.append(timestamp_label)
 ui.append(glucose_units_label)
 ui.append(info_label)
