@@ -18,7 +18,7 @@ This project provides a simple and effective way to continuously monitor and dis
 ![example](example.jpg)
 
 ## Features
-- Displays real-time glucose levels from the Freestyle Libre CGM using the LibreLink API
+- Displays real-time glucose levels from the Freestyle Libre CGM using the LibreLinkUp API
 - Easy-to-read display with Waveshare 2" IPS screen.
 - Wireless data fetching via Raspberry Pi Pico W.
 - Simple and customizable codebase.
