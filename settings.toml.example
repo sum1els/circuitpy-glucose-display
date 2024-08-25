@@ -1,4 +1,7 @@
 CIRCUITPY_WIFI_SSID = "WIFI_SSID"
 CIRCUITPY_WIFI_PASSWORD = "WIFI_PASSWORD"
+# NOTE: if no API_ENDPOINT is defined it will use https://api.libreview.io
+# other available link up regions are us, eu, de, fr, jp, ap, au, ae
+# API_ENDPOINT = "https://api-de.libreview.io"
 API_USER = "LINKUP_USERNAME"
 API_PASSWORD = "LINKUP_PASSWORD"

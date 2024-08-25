@@ -102,7 +102,7 @@ print("Connected to WiFi")
 pool = wireless.socketpool.SocketPool(wireless.wifi.radio)
 
 # API endpoint URL
-BASE_URL = "https://api.libreview.io"
+BASE_URL = os.getenv("API_ENDPOINT", "https://api.libreview.io")
 
 LOG_IN_URL = BASE_URL + "/llu/auth/login"
 CONNECTIONS_URL = BASE_URL + "/llu/connections"
