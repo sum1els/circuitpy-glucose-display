@@ -38,9 +38,7 @@ COLORS = {
 }
     
 def mg_dl_to_mmol_l(mg_dl):
-    mmol_l = mg_dl / 18.01559
-    return round(mmol_l, 2)
-    
+    return round(mg_dl / 18.01559, 2)
 def get_api_token():
     try:
         response = requests.post(LOG_IN_URL, headers=LOGIN_HEADERS, data=json_auth_params)
