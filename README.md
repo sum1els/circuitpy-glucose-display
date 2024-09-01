@@ -8,6 +8,7 @@ This project uses a Raspberry Pi Pico W and a Waveshare 2" IPS screen to display
 - [Hardware Requirements](#hardware-requirements)
 - [Software Requirements](#software-requirements)
 - [Setup Instructions](#setup-instructions)
+- [Makefile](#makefile)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -60,6 +61,33 @@ This project provides a simple and effective way to continuously monitor and dis
     API_PASSWORD = "LINKUP_PASSWORD"
    ```
 
+## Makefile
+
+### Overview
+
+This repository includes a Makefile that automates the installation and setup process, at the moment it only supports macOS. The Makefile is designed for experienced users who are familiar with command-line tools.
+
+### Compatibility
+
+- **macOS only**: The Makefile uses macOS-specific commands and may not work on Linux or Windows without modification.
+- **Experienced users**: The Makefile assumes familiarity with command-line operations.
+
+### How to Use the Makefile
+
+- `make all`: Runs all the steps to install CircuitPython, required libraries, configure settings, and deploy the code.
+- `make download_circuitpython`: Downloads the latest version of CircuitPython for Raspberry Pi Pico W.
+- `make install_circuitpython`: Waits for the `RPI-RP2` drive to be mounted and installs CircuitPython.
+- `make download_libraries`: Downloads the latest compatible Adafruit CircuitPython libraries based on the installed version of CircuitPython.
+- `make install_libraries`: Installs the required libraries to the `CIRCUITPY` drive.
+- `make configure_settings`: Configures Wi-Fi and LibreLinkUp credentials in `settings.toml`. If the file already exists, it will not be overwritten.
+- `make deploy_code`: Deploys the project code and assets to the `CIRCUITPY` drive.
+- `make clean`: Removes downloaded files and temporary data but **does not delete `settings.toml`**.
+- `make serialconsol`: Open a serialconsol with screen to the Pi Pico W.
+
+### Troubleshooting
+
+- **Check if CIRCUITPY is Mounted**: The Makefile includes a `check_mount` task that verifies if the `CIRCUITPY` drive is mounted. It waits for up to 5 seconds, checking every second. If the drive is not found, the process will fail.
+- **Ensure macOS Compatibility**: The Makefile uses macOS commands such as `df` and `grep` to check if drives are mounted. Ensure that these commands work correctly on your system.
 ## Usage
 After completing the setup instructions, your Raspberry Pi Pico W should automatically connect to your Wi-Fi network, fetch glucose data from the Freestyle Libre CGM, and display it on the Waveshare 2" IPS screen.
 
