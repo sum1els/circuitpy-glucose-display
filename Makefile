@@ -75,11 +75,13 @@ download_libraries:
 # Install the required CircuitPython libraries
 install_libraries: check_mount
 	@echo "Copying required libraries to the 'lib' folder on the CIRCUITPY drive."
+	cp -r adafruit-circuitpython-bundle-*/lib/adafruit_hashlib $(CIRCUITPY_DRIVE)/lib/
 	cp -r adafruit-circuitpython-bundle-*/lib/adafruit_imageload $(CIRCUITPY_DRIVE)/lib/
 	cp -r adafruit-circuitpython-bundle-*/lib/adafruit_display_text $(CIRCUITPY_DRIVE)/lib/
 	cp adafruit-circuitpython-bundle-*/lib/adafruit_requests.mpy $(CIRCUITPY_DRIVE)/lib/
 	cp adafruit-circuitpython-bundle-*/lib/adafruit_connection_manager.mpy $(CIRCUITPY_DRIVE)/lib/
 	cp adafruit-circuitpython-bundle-*/lib/adafruit_st7789.mpy $(CIRCUITPY_DRIVE)/lib/
+	cp adafruit-circuitpython-bundle-*/lib/adafruit_binascii.mpy $(CIRCUITPY_DRIVE)/lib/
 
 # Configure Wi-Fi settings and LibreLinkUp credentials
 configure_settings:
@@ -106,6 +108,14 @@ configure_settings:
 deploy_code: check_mount
 	@echo "Deploying code to CIRCUITPY drive..."
 	@FILES=("wireless.py" "settings.toml" "trend_arrows.bmp" "code.py"); \
+	for FILE in $${FILES[@]}; do \
+		echo "Copying $$FILE to $(CIRCUITPY_DRIVE)/"; \
+		cp $$FILE $(CIRCUITPY_DRIVE)/; \
+	done
+
+deploy_code_only: check_mount
+	@echo "Deploying code to CIRCUITPY drive..."
+	@FILES=("code.py"); \
 	for FILE in $${FILES[@]}; do \
 		echo "Copying $$FILE to $(CIRCUITPY_DRIVE)/"; \
 		cp $$FILE $(CIRCUITPY_DRIVE)/; \

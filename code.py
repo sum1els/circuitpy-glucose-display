@@ -3,6 +3,8 @@ import os
 import ssl
 import time
 
+import adafruit_binascii
+import adafruit_hashlib
 import adafruit_imageload
 import adafruit_requests
 import board
@@ -61,10 +63,11 @@ def get_api_token():
         response.close()
         print("Login success, received API token: " + str(data["authTicket"]["token"]))
         return data["authTicket"]["token"]
-    except:
-        print("unable to fetch API, check username and password")
+    except Exception as e:
+        print("Unable to fetch API token. Check username and password.")
+        print(f"Error: {e}")
         response.close()
-        return "no_api_key"
+        return None
 
 
 def fetch_glucose_data():
@@ -119,6 +122,37 @@ def update_display(glucose_info):
         trend_arrows[0] = 4
 
 
+def base64_decode(data):
+    """Decode Base64 string to text."""
+    try:
+        import binascii
+        data_bytes = data.encode('ascii')
+        decoded = binascii.a2b_base64(data_bytes)
+        return decoded.decode('utf-8')
+    except Exception as e:
+        print(f"Base64 error: {e}")
+        print(f"Input: {data}")
+        return None
+
+
+def fetch_account_id_from_token(token):
+    try:
+        # Split the JWT into its components (Header, Payload, Signature)
+        header, payload, signature = token.split(".")
+        # Decode the payload
+        decoded_payload = json.loads(base64_decode(payload))
+        user_id = decoded_payload["id"]
+
+        # Generate SHA-256 hash for account-id
+        sha256 = adafruit_hashlib.sha256()
+        sha256.update(user_id.encode("utf-8"))
+        account_id = sha256.hexdigest()
+        print("Successfully generated account-id:", account_id)
+        return account_id
+    except Exception as e:
+        print(f"Error processing token for account-id: {e}")
+        return None
+
 while not wireless.wifi.radio.connected:
     wireless.connect()
 
@@ -137,22 +171,32 @@ auth_params = {"email": os.getenv("API_USER"), "password": os.getenv("API_PASSWO
 # Serialize the payload to JSON format
 json_auth_params = json.dumps(auth_params)
 
+# FIXME: LOGIN_HEADERS and HEADERS should be the same
 LOGIN_HEADERS = {
     "Content-type": "application/json",
     "product": "llu.android",
-    "version": "4.7",
+    "version": "4.12.0",
 }
 
 requests = adafruit_requests.Session(pool, ssl.create_default_context())
 
 api_token = get_api_token()
 
-HEADERS = {
-    "Content-type": "application/json",
-    "product": "llu.android",
-    "version": "4.7",
-    "Authorization": "Bearer " + api_token,
-}
+if api_token:
+    # Fetch account-id from the token
+    account_id = fetch_account_id_from_token(api_token)
+
+    HEADERS = {
+        "Content-type": "application/json",
+        "product": "llu.android",
+        "version": "4.12.0",
+        "Authorization": "Bearer " + api_token,
+        "account-id": account_id,
+    }
+    print("Headers initialized successfully.")
+else:
+    print("Failed to initialize headers due to missing API token.")
+    HEADERS = None
 
 font = terminalio.FONT
 
