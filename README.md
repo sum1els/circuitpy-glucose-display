@@ -88,6 +88,7 @@ This repository includes a Makefile that automates the installation and setup pr
 - `make install_libraries`: Installs the required libraries to the `CIRCUITPY` drive.
 - `make configure_settings`: Configures Wi-Fi and LibreLinkUp credentials in `settings.toml`. If the file already exists, it will not be overwritten.
 - `make deploy_code`: Deploys the project code and assets to the `CIRCUITPY` drive.
+- `make deploy_code_only`: Deploys code.py to the `CIRCUITPY` drive.
 - `make clean`: Removes downloaded files and temporary data but **does not delete `settings.toml`**.
 - `make serialconsol`: Open a serialconsol with screen to the Pi Pico W.
 

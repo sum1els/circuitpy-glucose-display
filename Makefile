@@ -13,7 +13,14 @@ serialconsol:
 	@echo "you are in tmux! If it doesn't work, you may need to reconnect your Pico!"
 	@echo "---------------------------------------------------------------------"
 	@sleep 2
-	screen /dev/tty.usbmodem1101 115200
+	@SERIAL_PORT=$$(ls /dev/tty.usbmodem* 2>/dev/null || ls /dev/ttyACM* 2>/dev/null || echo ""); \
+	if [ -z "$$SERIAL_PORT" ]; then \
+		echo "Error: No Pico serial port found. Is the device connected?"; \
+		exit 1; \
+	else \
+		echo "Connecting to $$SERIAL_PORT..."; \
+		screen $$SERIAL_PORT 115200; \
+	fi
 
 # Download the latest CircuitPython version
 download_circuitpython:
@@ -74,12 +81,17 @@ download_libraries:
 
 # Install the required CircuitPython libraries
 install_libraries: check_mount
+	@echo "Creating lib directory if it doesn't exist..."
+	@mkdir -p $(CIRCUITPY_DRIVE)/lib
 	@echo "Copying required libraries to the 'lib' folder on the CIRCUITPY drive."
-	cp -r adafruit-circuitpython-bundle-*/lib/adafruit_imageload $(CIRCUITPY_DRIVE)/lib/
-	cp -r adafruit-circuitpython-bundle-*/lib/adafruit_display_text $(CIRCUITPY_DRIVE)/lib/
-	cp adafruit-circuitpython-bundle-*/lib/adafruit_requests.mpy $(CIRCUITPY_DRIVE)/lib/
-	cp adafruit-circuitpython-bundle-*/lib/adafruit_connection_manager.mpy $(CIRCUITPY_DRIVE)/lib/
-	cp adafruit-circuitpython-bundle-*/lib/adafruit_st7789.mpy $(CIRCUITPY_DRIVE)/lib/
+	@for lib in adafruit_hashlib adafruit_imageload adafruit_display_text; do \
+		echo "Copying $$lib..."; \
+		cp -r adafruit-circuitpython-bundle-*/lib/$$lib $(CIRCUITPY_DRIVE)/lib/ || exit 1; \
+	done
+	@for lib in adafruit_requests.mpy adafruit_connection_manager.mpy adafruit_st7789.mpy adafruit_binascii.mpy; do \
+		echo "Copying $$lib..."; \
+		cp adafruit-circuitpython-bundle-*/lib/$$lib $(CIRCUITPY_DRIVE)/lib/ || exit 1; \
+	done
 
 # Configure Wi-Fi settings and LibreLinkUp credentials
 configure_settings:
@@ -111,9 +123,19 @@ deploy_code: check_mount
 		cp $$FILE $(CIRCUITPY_DRIVE)/; \
 	done
 
+deploy_code_only: check_mount
+	@echo "Deploying code to CIRCUITPY drive..."
+	@FILES=("code.py"); \
+	for FILE in $${FILES[@]}; do \
+		echo "Copying $$FILE to $(CIRCUITPY_DRIVE)/"; \
+		cp $$FILE $(CIRCUITPY_DRIVE)/; \
+	done
+
 # Clean up downloaded files
 clean:
+	@echo "Cleaning up downloaded files..."
 	rm -f circuitpython.uf2
 	rm -f adafruit-libraries.zip
-	rm -rf adafruit-circuitpython-bundle-9.x-mpy-*
+	rm -rf adafruit-circuitpython-bundle-*
 	rm -f .circuitpython_version
+	@echo "Cleanup complete."
